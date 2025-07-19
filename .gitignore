@@ -1,0 +1,13 @@
+.bsp
+.metals
+.vscode
+
+v0.12.14/.bsp
+v0.12.14/.metals
+v0.12.14/.vscode
+v0.12.14/out
+
+v1.0.0/.bsp
+v1.0.0/.metals
+v1.0.0/.vscode
+v1.0.0/out
