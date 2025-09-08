@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@capacitor/app": "^7.0.2",
+    "@capacitor/core": "^7.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "scripts": {
+    "dev": "npx vite serve ./frontend/resources"
+  }
+}
