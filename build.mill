@@ -1,43 +1,21 @@
-//| mill-version: 1.0.4
-//| mvnDeps: 
-//| - com.github.lolgab::mill-scalablytyped::0.3.0
+//| mill-version: 1.1.1
 
 package build
 
 import mill.*, scalalib.*, scalajslib.*
 import mill.api.Task.Simple
-import com.github.lolgab.mill.scalablytyped.*
 import mill.scalajslib.api.ModuleKind
 
-val baseScalaVersion = "3.7.2"
-val baseScalaJSVersion = "1.19.0"
+object `package` extends ScalaModule {
+    def scalaVersion = "3.8.1"
+    
+    object test extends ScalaTests with TestModule.Utest {
+        def testParallelism = false
 
-object shared extends Module {
-    trait SharedModule extends PlatformScalaModule {
-      def mvnDeps = Seq(
-        mvn"com.lihaoyi::scalatags::0.13.1",
-      )
+        def testFramework = "utils.CustomFramework"
+
+        def mvnDeps = Seq(
+            mvn"com.lihaoyi::utest:0.8.4",
+        )
     }
-
-    object jvm extends SharedModule {
-      def scalaVersion: Simple[String] = baseScalaVersion
-    }
-    object js extends ScalaJSModule, SharedModule {
-      def scalaVersion: Simple[String] = baseScalaVersion
-      def scalaJSVersion: Simple[String] = baseScalaJSVersion
-    }
-}
-
-object ScalablyTypedModule extends ScalaJSModule with ScalablyTyped {
-  def scalaVersion: Simple[String] = baseScalaVersion
-  def scalaJSVersion: Simple[String] = baseScalaJSVersion
-}
-
-object frontend extends ScalaJSModule {
-  def scalaVersion: Simple[String] = baseScalaVersion
-  def scalaJSVersion: Simple[String] = baseScalaJSVersion
-
-  override def moduleKind: T[ModuleKind] = ModuleKind.ESModule
-
-  override def moduleDeps: Seq[JavaModule] = Seq(shared.js, ScalablyTypedModule)
 }
